@@ -67,3 +67,4 @@ coverage
 **/bin
 **/obj
 **/wwwroot
+**/.vscode
