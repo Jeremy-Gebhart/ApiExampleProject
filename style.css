@@ -1,0 +1,52 @@
+.btn {
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+  }
+  
+  .btn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+  }
+
+  .grid-container {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: 260px 2px auto;
+      height: 90vh;
+  }
+
+  .leftCell {
+      grid-column: 1 / 1;
+      padding: 10px;
+  }
+
+  .dividerCell {
+      grid-column: 2 / 2;
+      background-color: #000000;
+  }
+
+  .rightCell {
+      grid-column: 3 / 3;
+      text-align: center;
+      padding: 10px;
+  }
+
+  .border {
+      border-style: solid;
+      border-width: 1px;
+      border-color: #000000;
+      height: 80vh;
+      width: 50vw;
+      margin-left: 10%;
+  }

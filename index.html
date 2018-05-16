@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="UTF-8">
         <title>API Test Page</title>
         <script src="apiService.js"></script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-
+        <section class="grid-container">
+            <section id="apiCallsPanel" class="leftCell">
+                <h1>Click button to send a request</h1>
+                <button id="getPlanets" class="btn">Get Planets</button><br>
+            </section>
+            <section id="divider" class="dividerCell"></section>
+            <section id="resultDisplayPanel" class="rightCell">
+                <h1>Call Results:</h1>
+                <article class="border">
+                    <label id="resultDisplay">Test</label>
+                </article>
+            </section>
+        </section>
     </body>
 </html>
