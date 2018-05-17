@@ -1,0 +1,12 @@
+{
+    "name": "microservices-mashup",
+    "license": "GPL-3.0-or-later",
+    "dependencies": {
+        "jquery": "3.3.1",
+        "requirejs": "2.3.5",
+        "requirejs-text": "2.0.15"
+    },
+    "devDependencies": {
+      "gulp": "3.9.1"  
+    }
+}
