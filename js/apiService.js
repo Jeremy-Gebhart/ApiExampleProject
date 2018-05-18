@@ -6,7 +6,12 @@
 
         // Event handlers for button clicks
         $('#getPlanets').click(function() {
-            var planets = getPlanets();
+            getPlanets();
+        });
+
+        $('#getPlanet').click(function() {
+            var index = $('#planetIndex').val();
+            getPlanet(index);
         });
     });
     
@@ -17,7 +22,11 @@
 
     // Make AJAX get
     function getPlanets() {
-        var data = makeCorsRequest('GET', 'planets');
+        makeCorsRequest('GET', 'planets', true);
+    }
+
+    function getPlanet(index) {
+        makeCorsRequest('GET', 'planets/' + Number(index), false);
     }
 
     // Create the XHR object.
@@ -36,12 +45,12 @@
         }
         return xhr;
     }
-    
+
     // Make the actual CORS request.
-    function makeCorsRequest(method, endpoint) {
+    function makeCorsRequest(method, endpoint, isArray) {
         // This is a sample server that supports CORS.
         var url = 'http://localhost:8081/api/' + endpoint;
-    
+
         var xhr = createCORSRequest(method, url);
         if (!xhr) {
             alert('CORS not supported');
@@ -50,10 +59,21 @@
     
         // Response handlers.
         xhr.onload = function() {
-            var text = xhr.responseText;
+            var json = JSON.parse(xhr.response);
 
             // Update DOM
-            updateDisplay(text);
+            var displayText = '';
+            if (isArray == true) {
+                for (var i = 0; i < json.length; i++) {
+                    var data = json[i];
+                    displayText += 'Name: ' + data.name + ' - Description: ' + data.description + '\n';
+                }
+                updateDisplay(displayText);
+            }
+            else {
+                displayText = 'Name: ' + json.name + ' - Description: ' + json.description;
+                updateDisplay(displayText);
+            }
         };
     
         xhr.onerror = function() {
