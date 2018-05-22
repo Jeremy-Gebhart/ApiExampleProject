@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace DotNetCoreApi.Controllers
 {
     [Route("api/planets")]
-    [EnableCors("AllowLocalhost")]
     public class PlanetsController : Controller
     {
         ILogger<PlanetsController> _logger;
@@ -156,7 +155,7 @@ namespace DotNetCoreApi.Controllers
         /// </summary>
         private void AddAccessHeader()
         {
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            //Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:8080");
         }
     }
 }

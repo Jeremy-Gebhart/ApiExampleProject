@@ -55,3 +55,11 @@
   .spaceAround {
       margin: 5px;
   }
+
+  #planetDescription {
+      width: 140px;
+  }
+
+  #planetName {
+      width: 120px;
+  }
