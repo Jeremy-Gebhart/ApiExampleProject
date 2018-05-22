@@ -13,7 +13,7 @@ This repo runs as completely detached services, and so requires a number of tool
 * Visual Studio Code
 * [npm](https://nodejs.org/en/download/)
 
-### Instalation Instructions
+### Installation Instructions
 
 I have both `gulp` and ``http-serve` installed globally to save time and typing. To install them globally, run the following commands:
 
