@@ -26,17 +26,16 @@ namespace DotNetCoreApi.Controllers
         public IActionResult GetPlanets()
         {
             _logger.LogInformation("Returning all planets...");
-            AddAccessHeader();
             return Ok(PlanetsDataStore.Current.Planets);
         }
 
         /// <summary>
-        /// Get a single planet from the star charts.
+        /// Get a single planet from the star charts by id.
         /// </summary>
         /// <param name="planetId">Identifier for the requested planet.</param>
         /// <returns>The requested planetary record.</returns>
-        [HttpGet("{planetId}", Name = "GetPlanet")]
-        public IActionResult GetPlanet(int planetId)
+        [HttpGet("{planetId}", Name = "GetPlanetById")]
+        public IActionResult GetPlanetById(int planetId)
         {
             // Find the planet
             var planet = PlanetsDataStore.Current.Planets.FirstOrDefault(p => p.Id == planetId);
@@ -47,7 +46,6 @@ namespace DotNetCoreApi.Controllers
             }
             _logger.LogInformation($"Planet {planet.Name} with id {planet.Id} has been located.");
 
-            AddAccessHeader();
             return Ok(planet);
         }
 
@@ -84,8 +82,7 @@ namespace DotNetCoreApi.Controllers
             PlanetsDataStore.Current.Planets.Add(newPlanet);
             _logger.LogInformation($"Planet {planetToAdd.Name} sucessfully added.");
 
-            AddAccessHeader();
-            return CreatedAtRoute("GetPlanet", new
+            return CreatedAtRoute("GetPlanetById", new
             { planetId = newPlanet.Id }, newPlanet);
         }
 
@@ -122,8 +119,7 @@ namespace DotNetCoreApi.Controllers
             planet.Name = planetToUpdate.Name;
             planet.Description = planetToUpdate.Description;
             _logger.LogInformation($"The star chart entry for {planet.Name} has been update.");
-
-            AddAccessHeader();
+            
             return NoContent();
         }
 
@@ -144,18 +140,10 @@ namespace DotNetCoreApi.Controllers
             }
 
             PlanetsDataStore.Current.Planets.Remove(planet);
+            PlanetsDataStore.Current.ReorderIds();
             _logger.LogInformation($"{planet.Name} has been deleted from the star charts.");
-
-            AddAccessHeader();
+            
             return NoContent();
-        }
-
-        /// <summary>
-        /// Add the needed access header to make the response palatable to the client.
-        /// </summary>
-        private void AddAccessHeader()
-        {
-            //Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:8080");
         }
     }
 }

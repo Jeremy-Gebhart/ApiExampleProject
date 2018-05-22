@@ -46,5 +46,27 @@ namespace DotNetCoreApi
                 }
             };
         }
+
+        /// <summary>
+        /// Reorder the ids after a Remove() is called.
+        /// </summary>
+        public void ReorderIds()
+        {
+            // For this operation, I need access to the list functionality.
+            // For optimization purposes, only cast as a List once and perform
+            //  all needed operations before assigning it back to the property.
+            var planetaryList = Planets.ToList();
+
+            // Adjust any planet ids that are not in linear order
+            planetaryList.ForEach(planet =>
+            {
+                var index = planetaryList.FindIndex(p => p.Id == planet.Id);
+                if (!(planet.Id == index + 1))
+                {
+                    planet.Id = index + 1;
+                }
+            });
+            Planets = planetaryList;
+        }
     }
 }

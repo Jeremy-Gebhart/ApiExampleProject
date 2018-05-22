@@ -24,6 +24,19 @@
 
             addPlanet(name, description);
         });
+
+        $('#updatePlanet').click(function() {
+            var index = $('#planetIndex').val();
+            var name = $('#planetName').val();
+            var description = $('#planetDescription').val();
+
+            updatePlanet(name, description, index);
+        });
+
+        $('#deletePlanet').click(function() {
+            var index = $('#planetIndex').val();
+            deletePlanet(index);
+        });
     });
     
     // Append output to the result display
@@ -32,7 +45,7 @@
     }
 
     function getPlanets() {
-        makeHttpRequest('GET', 'planets', null, displayPlanets);
+        makeHttpRequest('GET', 'planets', null, displayAll);
     }
 
     function getPlanet(index) {
@@ -40,14 +53,23 @@
     }
 
     function addPlanet(name, description) {
-        var requestBodyData = {name, description};
-        makeHttpRequest('POST', 'planets', requestBodyData, handlePlanetAdd);
+        var dataToAdd = {name, description};
+        makeHttpRequest('POST', 'planets', dataToAdd, handlePlanetAdd);
     }
 
+    function deletePlanet(index) {
+        makeHttpRequest('DELETE', 'planets/' + Number(index), null, handleDelete);
+    }
+
+    function updatePlanet(name, description, index) {
+        var dataToUpdate = {name, description};
+        makeHttpRequest('PUT', 'planets/' + Number(index), dataToUpdate, confirmUpdate)
+    }
+    
 
 
     // Callbacks
-    function displayPlanets(json) {
+    function displayAll(json) {
         var displayText = '';
         for (var i = 0; i < json.length; i++) {
             var data = json[i];
@@ -78,32 +100,35 @@
         numberOfPlanets = json.length;
     }
 
+    function handleDelete() {
+        // Reduce the number of planets and adjust the index max
+        numberOfPlanets--;
+        $('#planetIndex').attr('max', numberOfPlanets);
 
-    // Create the XHR object
-    function createCORSRequest(method, url) {
-        var xhr = new XMLHttpRequest();
-        if ("withCredentials" in xhr) {
-            // XHR for Chrome/Firefox/Opera/Safari
-            xhr.open(method, url, true);
-        } else if (typeof XDomainRequest != "undefined") {
-            // XDomainRequest for IE
-            xhr = new XDomainRequest();
-            xhr.open(method, url);
-        } else {
-            // CORS not supported
-            xhr = null;
-        }
-        return xhr;
+        updateDisplay('--- Planet has been successfully removed ---');
     }
 
-    // Make the actual CORS request
+    function getPlanetaryId(json) {
+        return json.Id;
+    }
+
+    function confirmUpdate() {
+        updateDisplay('--- Planet has been successfully updated ---');
+
+        // Reset the text fields
+        $('#planetName').val('');
+        $('#planetDescription').val('');
+    }
+
+    // Make the actual HTTP request
     function makeHttpRequest(method, endpoint, requestBodyData, callback) {
         // This is a sample server that supports CORS
         var appUrl = 'http://localhost:8081/api/' + endpoint;
 
         switch (method) {
             case 'GET':
-                doGet(method, appUrl, callback);
+            case 'DELETE':
+                doGetDelete(method, appUrl, callback);
                 break;
             case 'POST':
             case 'PUT':
@@ -112,7 +137,7 @@
         }
     }
 
-    function doGet(method, appUrl, callback) {
+    function doGetDelete(method, appUrl, callback) {
         $.ajax({
             url: appUrl,
             type: method,
