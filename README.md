@@ -7,15 +7,15 @@
 
 This repo runs as completely detached services, and so requires a number of tools to run properly.
 
-### List of Tools
+### List of Tools I used
 
 * Visual Studio 2017 (pick your flavor)
-* Visual Studio Code
+* [Visual Studio Code](https://code.visualstudio.com/download)
 * [npm](https://nodejs.org/en/download/)
 
 ### Installation Instructions
 
-I have both `gulp` and ``http-serve` installed globally to save time and typing. To install them globally, run the following commands:
+I have both `gulp` and `http-serve` installed globally to save time and typing. To install them globally, run the following commands:
 
 ```sh
 npm install -g gulp
