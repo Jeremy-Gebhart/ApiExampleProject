@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "outDir": "api/nodejs/dist"
+    },
+    "include": [
+        "api/nodejs/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "api/dot_net",
+        "js",
+        ".vscode"
+    ]
+}

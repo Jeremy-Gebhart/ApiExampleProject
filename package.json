@@ -1,12 +1,23 @@
 {
-    "name": "microservices-mashup",
-    "license": "GPL-3.0-or-later",
-    "dependencies": {
-        "jquery": "3.3.1",
-        "requirejs": "2.3.5",
-        "requirejs-text": "2.0.15"
-    },
-    "devDependencies": {
-      "gulp": "3.9.1"  
-    }
+  "name": "microservices-mashup",
+  "author": {
+    "name": "Jeremy Gebhart"
+  },
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "buildTs": "gulp scripts"
+  },
+  "dependencies": {
+    "jquery": "3.3.1",
+    "requirejs": "2.3.5",
+    "requirejs-text": "2.0.15"
+  },
+  "devDependencies": {
+    "@types/debug": "0.0.29",
+    "@types/express": "^4.0.33",
+    "@types/node": "^6.0.46",
+    "gulp": "3.9.1",
+    "gulp-typescript": "4.0.2",
+    "typescript": "2.8.3"
+  }
 }
